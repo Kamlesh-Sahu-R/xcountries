@@ -10,20 +10,20 @@ export default function Countries(){
     const [error, setError] = useState(null);
     const url = 'https://xcountries-backend.azurewebsites.net/all';
 
+    const apiCall = async () => {
+        try {
+            const resp = await axios.get(url);
+            setCountries(resp.data);
+        } catch (e) {
+            setError(e);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        async function apiCall(){
-            await axios.get(url)
-            .then((resp) =>{
-                setCountries(resp.data);
-                setLoading(false);
-            })
-            .catch((e) => {
-                setError(e);
-                setLoading(false);
-            });
-        };
-        apiCall()
-        console.log(countries);
+
+        apiCall();
         
     }, []);
 
