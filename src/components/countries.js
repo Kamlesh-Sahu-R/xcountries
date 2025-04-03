@@ -14,9 +14,12 @@ export default function Countries(){
             const jsonResp = await resp.json();
             setCountries(jsonResp);
         } catch (e) {
+            console.error("This is API error: ", e);
             return <p> Error: {e.message}</p>
         }
     };
+
+    //apiCall()
 
     useEffect(() => {apiCall()}, []);
 
