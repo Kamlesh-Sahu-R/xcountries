@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import { CountryFlagCard } from "./coutry-flag-card";
-import axios from "axios";
+
 
 
 export default function Countries(){
@@ -10,8 +10,9 @@ export default function Countries(){
 
     const apiCall = async () => {
         try {
-            const resp = await axios.get(url);
-            setCountries(resp.data);
+            const resp = await fetch(url);
+            const jsonResp = await resp.json();
+            setCountries(jsonResp);
         } catch (e) {
             return <p> Error: {e.message}</p>
         }
@@ -19,22 +20,18 @@ export default function Countries(){
 
     useEffect(() => {apiCall()}, []);
 
-    if (countries.length > 0) {
-        return(
-            <div 
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "10px",
-                margin: "15px"
-              }}
-            >
-                {countries.map(({name, flag, abbr}) =>(
-                    <CountryFlagCard name = {name} flag ={flag} key = {abbr} />
-                ))}
-            </div>
-        );
-    };
-
-   
+    return(
+        <div 
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "10px",
+            margin: "15px"
+          }}
+        >
+            {countries.map(({name, flag, abbr}) =>(
+                <CountryFlagCard name = {name} flag ={flag} key = {abbr} />
+            ))}
+        </div>
+    );
 }
