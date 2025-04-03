@@ -14,7 +14,7 @@ export default function Countries(){
             const jsonResp = await resp.json();
             setCountries(jsonResp);
         } catch (e) {
-            console.error("This is API error: ", e);
+            console.error("Error fetching data: ", e);
             return <p> Error: {e.message}</p>
         }
     };
