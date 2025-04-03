@@ -19,18 +19,22 @@ export default function Countries(){
 
     useEffect(() => {apiCall()}, []);
 
-    return(
-        <div 
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "10px",
-            margin: "15px"
-          }}
-        >
-            {countries.map(({name, flag, abbr}) =>(
-                <CountryFlagCard name = {name} flag ={flag} key = {abbr} />
-            ))}
-        </div>
-    );
+    if (countries.length > 0) {
+        return(
+            <div 
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "10px",
+                margin: "15px"
+              }}
+            >
+                {countries.map(({name, flag, abbr}) =>(
+                    <CountryFlagCard name = {name} flag ={flag} key = {abbr} />
+                ))}
+            </div>
+        );
+    };
+
+   
 }
