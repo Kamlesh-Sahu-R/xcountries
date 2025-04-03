@@ -6,8 +6,6 @@ import axios from "axios";
 export default function Countries(){
     
     const [countries, setCountries] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const url = 'https://xcountries-backend.azurewebsites.net/all';
 
     const apiCall = async () => {
@@ -15,28 +13,11 @@ export default function Countries(){
             const resp = await axios.get(url);
             setCountries(resp.data);
         } catch (e) {
-            setError(e);
-        } finally {
-            setLoading(false);
+            return <p> Error: {e.message}</p>
         }
     };
 
-    useEffect(() => {
-
-        apiCall();
-        
-    }, []);
-
-    // useEffect(() => {
-    //     console.log(countries);
-    // }, [countries]);
-
-    if(loading){
-        return <p> Loading...</p>
-    }
-    if(error){
-        return <p> Error: {error.message}</p>
-    }
+    useEffect(() => {apiCall()}, []);
 
     return(
         <div 
